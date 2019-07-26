@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<b>Portinformer v2 prototype</b>
+<div id="toPush"></div>
+{{ template "block_one" .DataOne }}
+<select onchange="getRemoteData('http://127.0.0.1:8000/getStateData?state=' + this.value)">
+    <option value="0" selected>Select...</option>
+    <option value="1">State one</option>
+    <option value="2">State two</option>
+    <option value="3">State three</option>
+    <option value="4">State four</option>
+    <option value="5">State five</option>
+    <option value="6">State six</option>
+    <option value="7">State seven</option>
+</select>
+</body>
+
+<script>
+
+function getRemoteData(uri){
+    fetch(uri, {
+        method: 'get'
+    })
+    .then(response => response.json())
+    .then(jsonData => document.getElementById('toPush').innerHTML = jsonData.DataOne)
+    .catch(err => {
+            console.log(err);
+        });
+}
+    
+</script>
+
+</html>
+
